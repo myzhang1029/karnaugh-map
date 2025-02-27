@@ -1,6 +1,7 @@
 % \iffalse meta-comment
 % Copyright (C) 2015-2022 Mattias Jacobsson and contributors
-% This work, karnaugh-map, is written from the ground up by Mattias Jacobsson. However the general implementation idea is based on the work published on [TeX - LaTeX Stack Exchange](https://tex.stackexchange.com) by [Ignasi](https://tex.stackexchange.com/users/1952/ignasi) found [here](https://tex.stackexchange.com/a/140581) and [here](https://tex.stackexchange.com/a/36879) which is licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). karnaugh-map is therefore licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). Contributors include [Oscar Gustafsson](https://github.com/oscargus) and [Paul Hervot](https://github.com/Dettorer).
+%<package>%% Copyright (C) 2014-2025 Zhang Maiyun and contributors
+% This work, kmap, is written from the ground up by Mattias Jacobsson. However the general implementation idea is based on the work published on [TeX - LaTeX Stack Exchange](https://tex.stackexchange.com) by [Ignasi](https://tex.stackexchange.com/users/1952/ignasi) found [here](https://tex.stackexchange.com/a/140581) and [here](https://tex.stackexchange.com/a/36879) which is licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). kmap is therefore licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). Contributors include [Oscar Gustafsson](https://github.com/oscargus) and [Paul Hervot](https://github.com/Dettorer).
 % \fi
 %
 % \iffalse
@@ -8,15 +9,16 @@
 %<package>
 %<package>%%
 %<package>%% Copyright (C) 2015-2022 Mattias Jacobsson and contributors
-%<package>%% This work, karnaugh-map, is written from the ground up by Mattias Jacobsson. However the general implementation idea is based on the work published on [TeX - LaTeX Stack Exchange](https://tex.stackexchange.com) by [Ignasi](https://tex.stackexchange.com/users/1952/ignasi) found [here](https://tex.stackexchange.com/a/140581) and [here](https://tex.stackexchange.com/a/36879) which is licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). karnaugh-map is therefore licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). Contributors include [Oscar Gustafsson](https://github.com/oscargus) and [Paul Hervot](https://github.com/Dettorer).
+%<package>%% Copyright (C) 2014-2025 Zhang Maiyun and contributors
+%<package>%% This work, kmap, is written from the ground up by Mattias Jacobsson. However the general implementation idea is based on the work published on [TeX - LaTeX Stack Exchange](https://tex.stackexchange.com) by [Ignasi](https://tex.stackexchange.com/users/1952/ignasi) found [here](https://tex.stackexchange.com/a/140581) and [here](https://tex.stackexchange.com/a/36879) which is licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). kmap is therefore licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/). Contributors include [Oscar Gustafsson](https://github.com/oscargus) and [Paul Hervot](https://github.com/Dettorer).
 %<package>%%
 %<package>
 %<package>\NeedsTeXFormat{LaTeX2e}
-%<package>\ProvidesPackage{karnaugh-map}[2022/01/15 v2.0 Draw Karnaugh Maps]
+%<package>\ProvidesPackage{kmap}[2024/12/05 v3.0 Draw Karnaugh Maps]
 %
 %<*driver>
   \documentclass{ltxdoc}
-  \usepackage{karnaugh-map}
+  \usepackage{kmap}
   \usepackage{multicol}% for documentation
   \usepackage{tabularx}% for documentation
   \usepackage{float}% for documentation
@@ -28,7 +30,7 @@
   \RecordChanges
   \OnlyDescription
   \begin{document}
-    \DocInput{karnaugh-map.dtx}
+    \DocInput{kmap.dtx}
     \PrintChanges
   \end{document}
 %</driver>
@@ -53,11 +55,11 @@
 %
 % \changes{v1.0}{2015/10/09}{Initial version}
 %
-% \GetFileInfo{karnaugh-map.sty}
+% \GetFileInfo{kmap.sty}
 %
-% \title{The \textsf{karnaugh-map} package}
+% \title{The \textsf{kmap} package}
 % \author{Mattias Jacobsson}
-% \date{\textsf{karnaugh-map}~\fileversion, \filedate}
+% \date{\textsf{kmap}~\fileversion, \filedate}
 %
 %\maketitle
 %
@@ -69,12 +71,12 @@
 % \end{abstract}
 % \begin{figure}[H]
 %   \centering
-%   \begin{karnaugh-map}[2][2][1]
+%   \begin{kmap}[2][2][1]
 %     \minterms{1,2}
 %     \autoterms[0]
 %     \implicant{1}{1}
 %     \implicant{2}{2}
-%   \end{karnaugh-map}
+%   \end{kmap}
 % \end{figure}
 % \tableofcontents
 % \pagebreak
@@ -202,13 +204,13 @@
   \ifnum#1=63 111111\fi
 }
 
-%% command raises an error if executed outside the karnaugh-map environment
+%% command raises an error if executed outside the kmap environment
 \newcommand{\@karnaughmap@func@bailoutsideenvironment@}[0]{%
   \ifnum\@karnaughmap@var@mapsizex@\@karnaughmap@var@mapsizey@\@karnaughmap@var@mapsizez@=000
-    \PackageError{karnaugh-map}{%
-      Command can not be used outside karnaugh-map environment%
+    \PackageError{kmap}{%
+      Command can not be used outside kmap environment%
     }{%
-      Do not use this command outside the karnaugh-map environment.%
+      Do not use this command outside the kmap environment.%
     }
   \fi
 }
@@ -246,9 +248,9 @@
 \DeclareBoolOption[false]{linestyles}
 \ProcessKeyvalOptions*
 %% environment options
-\define@key{karnaugh-map}{label}[middle]{\renewcommand{\@karnaughmap@option@label}{#1}}
-\define@key{karnaugh-map}{implicantcolors}[]{\renewcommand{\@karnaughmap@option@implicantcolors}{#1}}
-\define@key{karnaugh-map}{linestyles}[false]{\@karnaughmap@option@linestylestrue}
+\define@key{kmap}{label}[middle]{\renewcommand{\@karnaughmap@option@label}{#1}}
+\define@key{kmap}{implicantcolors}[]{\renewcommand{\@karnaughmap@option@implicantcolors}{#1}}
+\define@key{kmap}{linestyles}[false]{\@karnaughmap@option@linestylestrue}
 
 %% render in black and white or color default to '0'(false/color)
 \newcommand{\@karnaughmap@var@bw@}{0}
@@ -281,14 +283,14 @@
 % ^^A ##########################################################################
 %    \end{macrocode}
 % \fi
-% \begin{environment}{karnaugh-map}
+% \begin{environment}{kmap}
 %    \changes{v2.0}{2018/12/13}{API change: variable labels are now specified separately.}
-%    The |karnaugh-map| environment is the base for this package, and everything related to this package happens inside an instances of this environment.
+%    The |kmap| environment is the base for this package, and everything related to this package happens inside an instances of this environment.
 %
 %    \textbf{Usage:}
 %
 %    \begin{tabularx}{\textwidth}{l X}
-%      \small{|\begin{karnaugh-map}|} & \\
+%      \small{|\begin{kmap}|} & \\
 %      \small{\parg{options}}     & \small{See section \ref{sec:usage:options}. Default: ''''} \\
 %      \small{\meta{*}}           & \small{One asterisk for black and white implicants, non for colorized implicants} \\
 %      \small{\oarg{X size}}      & \small{Number of X-axis cells. Default: ''4''} \\
@@ -302,24 +304,24 @@
 %      \small{\oarg{label F}}     & \small{Label for the variable six. Default: ''$X_5$''} \\
 %    \end{tabularx}
 %
-%     \footnotetext{The arguments \oarg{label A}, \oarg{label B}, and \oarg{label C} are currently backward compatible with \oarg{X label}, \oarg{Y label}, and \oarg{Z label} in version v1's definition of the |karnaugh-map| environment. This works through a heuristic method. However the v1 definition is now deprecated and this backward compatibility may disappear in a later version.}
+%     \footnotetext{The arguments \oarg{label A}, \oarg{label B}, and \oarg{label C} are currently backward compatible with \oarg{X label}, \oarg{Y label}, and \oarg{Z label} in version v1's definition of the |kmap| environment. This works through a heuristic method. However the v1 definition is now deprecated and this backward compatibility may disappear in a later version.}
 %
 %    \textbf{Example:}
 %
 %    Four variable karnaugh map, colorized, with X label $X_1X_0$, and Y label $X_3X_2$.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
-%\end{karnaugh-map}
+%\begin{kmap}
+%\end{kmap}
 %
 %or
 %
-%\begin{karnaugh-map}[4][4][1][$X_0$][$X_1$][$X_2$][$X_3$]
-%\end{karnaugh-map}
+%\begin{kmap}[4][4][1][$X_0$][$X_1$][$X_2$][$X_3$]
+%\end{kmap}
 %    \end{verbatim}
 %    Six variable karnaugh map, black and white, with X label $ba$, Y label $dc$, and Z label $fe$.
 %    \begin{verbatim}
-%\begin{karnaugh-map}*[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
-%\end{karnaugh-map}
+%\begin{kmap}*[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -328,27 +330,27 @@
 % ^^A ####                              CODE                                ####
 % ^^A ##########################################################################
 % ^^A ##########################################################################
-\NewDocumentEnvironment{karnaugh-map}{D(){} s O{4} O{4} O{1}} {%
+\NewDocumentEnvironment{kmap}{D(){} s O{4} O{4} O{1}} {%
   \begin{tikzpicture}
   \IfBooleanTF{#2}{%
-    \begin{karnaugh-map-inner}(#1)*[#3][#4][#5]%
+    \begin{kmap-inner}(#1)*[#3][#4][#5]%
   }{%
-    \begin{karnaugh-map-inner}(#1)[#3][#4][#5]%
+    \begin{kmap-inner}(#1)[#3][#4][#5]%
   }
 }{%
-  \end{karnaugh-map-inner}
+  \end{kmap-inner}
   \end{tikzpicture}
 }
-\NewDocumentEnvironment{karnaugh-map-inner}{D(){} s O{4} O{4} O{1}} {%
+\NewDocumentEnvironment{kmap-inner}{D(){} s O{4} O{4} O{1}} {%
   \begingroup
     % parse environment options
-    \setkeys{karnaugh-map}{#1}%
+    \setkeys{kmap}{#1}%
     %
     % check if implicant colors are specified
     \IfStrEq{\@karnaughmap@option@implicantcolors}{}{}{%
       % ensure no empty colors are specified
       \IfSubStr{\@karnaughmap@option@implicantcolors}{,,}{%
-        \PackageError{karnaugh-map}{%
+        \PackageError{kmap}{%
           Incorrect usage of option implicantcolors%
         }{%
           The option implicantcolors is a comma separated list of colors with no gap. You used two consecutive commas.%
@@ -488,7 +490,7 @@
     \fi
     % warn when using API v1
     \ifnum\@karnaughmap@var@labeltype@=1
-      \PackageWarning{karnaugh-map}{%
+      \PackageWarning{kmap}{%
         The API for specifying variable labels have been updated. You are currently using the old API(v1).
         In the new API each variable label is specified separately. See the documentation for more details.
         Backward compatibility may disappear in a future release.%
@@ -568,7 +570,7 @@
   % test if a matrix template is found or not(aka "\@karnaughmap@local@matrixtemplate@" equals to '0')
   \ifnum0=\@karnaughmap@local@matrixtemplate@
     % print error if no template could be found
-    \PackageError{karnaugh-map}{%
+    \PackageError{kmap}{%
       Can not find a template fitting your specification (\@karnaughmap@var@mapsizex@\space x \@karnaughmap@var@mapsizey@\space x \@karnaughmap@var@mapsizez@)%
     }{%
       Existing templates have the following dimensions: 2x2x1, 2x4x1, 4x2x1, 4x4x1, 4x4x2, and 4x4x4.
@@ -702,9 +704,9 @@
 %
 %    Fill all remaining unfilled cells with ''-''.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \autoterms[-]
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -715,7 +717,7 @@
 % ^^A ##########################################################################
 \newcount\@karnaughmap@local@max@\relax
 \DeclareDocumentCommand{\autoterms}{O{-}} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \begingroup
@@ -758,9 +760,9 @@
 %
 %    Fill the top left and right cell with ''-''.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \indeterminants{0,2}
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -770,7 +772,7 @@
 % ^^A ##########################################################################
 % ^^A ##########################################################################
 \DeclareDocumentCommand{\indeterminants}{m} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \terms{#1}{-}
@@ -798,9 +800,9 @@
 %
 %    Fill the first four cells with 0, 1, 0, and 1 respectively.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \manualterms{0,1,0,1}
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -811,7 +813,7 @@
 % ^^A ##########################################################################
 \newcount\@karnaughmap@local@cellcount@\relax
 \DeclareDocumentCommand{\manualterms}{m} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \foreach \cellinfo [count=\cell from 0] in {#1} {%
@@ -858,9 +860,9 @@
 %
 %    Fill the top left and right cell with ''0''.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \maxterms{0,2}
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -870,7 +872,7 @@
 % ^^A ##########################################################################
 % ^^A ##########################################################################
 \DeclareDocumentCommand{\maxterms}{m} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \terms{#1}{0}
@@ -898,9 +900,9 @@
 %
 %    Fill the top left and right cell with ''1''.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \minterms{0,2}
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -910,7 +912,7 @@
 % ^^A ##########################################################################
 % ^^A ##########################################################################
 \DeclareDocumentCommand{\minterms}{m} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \terms{#1}{1}
@@ -940,9 +942,9 @@
 %
 %    Fill the top left and right cell with ''X''.
 %    \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \terms{0,2}{X}
-%\end{karnaugh-map}
+%\end{kmap}
 %    \end{verbatim}
 % \iffalse code
 %    \begin{macrocode}
@@ -952,7 +954,7 @@
 % ^^A ##########################################################################
 % ^^A ##########################################################################
 \DeclareDocumentCommand{\terms}{m m} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   \foreach \cell in {#1} {%
@@ -1018,29 +1020,29 @@
 %    \begin{multicols}{2}
 %      [Implicant around the four most inner cells.]
 %      \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \implicant{5}{15}
-%\end{karnaugh-map}
+%\end{kmap}
 %      \end{verbatim}
 %      \columnbreak
 %      \resizebox{\columnwidth}{!}{%
-%        \begin{karnaugh-map}
+%        \begin{kmap}
 %          \implicant{5}{15}
-%        \end{karnaugh-map}%
+%        \end{kmap}%
 %      }
 %    \end{multicols}
 %    \begin{multicols}{2}
 %      [Single cell implicant, 0:th cell, on all four submaps.]
 %      \begin{verbatim}
-%\begin{karnaugh-map}[4][4][4]
+%\begin{kmap}[4][4][4]
 %  \implicant{0}{0}[0,1,2,3]
-%\end{karnaugh-map}
+%\end{kmap}
 %      \end{verbatim}
 %      \columnbreak
 %      \resizebox{\columnwidth}{!}{%
-%        \begin{karnaugh-map}[4][4][4]
+%        \begin{kmap}[4][4][4]
 %          \implicant{0}{0}[0,1,2,3]
-%        \end{karnaugh-map}%
+%        \end{kmap}%
 %      }
 %    \end{multicols}
 % \iffalse code
@@ -1053,7 +1055,7 @@
 \newcount\@karnaughmap@local@northwest@\relax
 \newcount\@karnaughmap@local@southeast@\relax
 \DeclareDocumentCommand{\implicant}{m m O{0}} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   % fetch new color
@@ -1094,7 +1096,7 @@
           ($(\@karnaughmap@func@decimaltobin@{\@karnaughmap@local@southeast@}.center)+(0.3,-0.3)$)
         };
       \else
-        \PackageWarning{karnaugh-map}{%
+        \PackageWarning{kmap}{%
           You can only draw on existing sub maps.
           Ignoring instruction to draw on non existing sub map number \map%
         }
@@ -1131,15 +1133,15 @@
 %    \begin{multicols}{2}
 %      [Horizontal implicant over the submap edge containing the cells 4, 6, 12, and 14.]
 %      \begin{verbatim}
-%\begin{karnaugh-map}
+%\begin{kmap}
 %  \implicantedge{4}{12}{6}{14}
-%\end{karnaugh-map}
+%\end{kmap}
 %      \end{verbatim}
 %      \columnbreak
 %      \resizebox{\columnwidth}{!}{%
-%        \begin{karnaugh-map}
+%        \begin{kmap}
 %          \implicantedge{4}{12}{6}{14}
-%        \end{karnaugh-map}%
+%        \end{kmap}%
 %      }
 %    \end{multicols}
 % \iffalse code
@@ -1154,7 +1156,7 @@
 \newcount\@karnaughmap@local@coordinateonecounter@\relax
 \newcount\@karnaughmap@local@coordinatetwocounter@\relax
 \DeclareDocumentCommand{\implicantedge}{m m m m O{0}} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   % fetch new color
@@ -1282,7 +1284,7 @@
           };
         }
       \else
-        \PackageWarning{karnaugh-map}{%
+        \PackageWarning{kmap}{%
           You can only draw on existing sub maps.
           Ignoring instruction to draw on non existing sub map number \map%
         }
@@ -1315,15 +1317,15 @@
 %    \begin{multicols}{2}
 %      [Draw an implicant around all corners on 0th and 2nd submap of a six variable karnaugh map.]
 %      \begin{verbatim}
-%\begin{karnaugh-map}[4][4][4]
+%\begin{kmap}[4][4][4]
 %  \implicantcorner[0,2]
-%\end{karnaugh-map}
+%\end{kmap}
 %      \end{verbatim}
 %      \columnbreak
 %      \resizebox{\columnwidth}{!}{%
-%        \begin{karnaugh-map}[4][4][4]
+%        \begin{kmap}[4][4][4]
 %          \implicantcorner[0,2]
-%        \end{karnaugh-map}%
+%        \end{kmap}%
 %      }
 %    \end{multicols}
 % \iffalse code
@@ -1335,7 +1337,7 @@
 % ^^A ##########################################################################
 \newcount\@karnaughmap@local@coordinate@\relax
 \DeclareDocumentCommand{\implicantcorner}{O{0}} {%
-  % bail if outside environment karnaugh-map
+  % bail if outside environment kmap
   \@karnaughmap@func@bailoutsideenvironment@{}
   %
   % make sure "\implicantcorner" only are used on 4x4 maps
@@ -1388,7 +1390,7 @@
           ($(\@karnaughmap@func@decimaltobin@{\@karnaughmap@local@coordinate@}.center)+(-.6*\@karnaughmap@local@mirrorx@,-.3*\@karnaughmap@local@mirrory@)$);
         }
       \else
-        \PackageWarning{karnaugh-map}{%
+        \PackageWarning{kmap}{%
           You can only draw on existing sub maps.
           Ignoring instruction to draw on non existing sub map number \map%
         }
@@ -1396,7 +1398,7 @@
     }
   \else
     % print error if "\implicantcorner" are used on non 4x4 map
-    \PackageError{karnaugh-map}{%
+    \PackageError{kmap}{%
       \protect\implicantcorner\space can only be used on 4x4 maps%
     }{%
       You are trying to use \protect\implicantcorner\space on non 4x4 map.%
@@ -1414,16 +1416,16 @@
 %
 % \newpage
 % \subsection{Options}\label{sec:usage:options}
-% There are two available method for customizing the package, either globally or locally to one |karnaugh-map| environment. Multiple options are comma separated. The global options are defined when the package is loaded.
+% There are two available method for customizing the package, either globally or locally to one |kmap| environment. Multiple options are comma separated. The global options are defined when the package is loaded.
 %    \begin{verbatim}
-%\usepackage[options]{karnaugh-map}
+%\usepackage[options]{kmap}
 %\end{verbatim}
 %
-% The local options, which have precedence over the global options, are defined when a |karnaugh-map| environment is started.
+% The local options, which have precedence over the global options, are defined when a |kmap| environment is started.
 %
 %    \begin{verbatim}
-%\begin{karnaugh-map}(options)
-%\end{karnaugh-map}
+%\begin{kmap}(options)
+%\end{kmap}
 %\end{verbatim}
 %
 % \textbf{Available options are:}
@@ -1434,25 +1436,25 @@
 % \begin{figure}[H]
 %   \centering
 %   \resizebox{.25\textwidth}{!}{%
-%     \begin{karnaugh-map}(implicantcolors={orange,violet})[2][2][1]
+%     \begin{kmap}(implicantcolors={orange,violet})[2][2][1]
 %       \minterms{1,2}
 %       \autoterms[0]
 %       \implicant{1}{1}
 %       \implicant{2}{2}
-%     \end{karnaugh-map}%
+%     \end{kmap}%
 %   }
 % \end{figure}
 %
-% \texttt{label}: The input variable labels can either be positioned on the top and the side of the karnaugh-map(\texttt{label=middle}). Alternatively they can be positioned in the top--left corner(\texttt{label=corner}). Default: \texttt{middle}.
+% \texttt{label}: The input variable labels can either be positioned on the top and the side of the kmap(\texttt{label=middle}). Alternatively they can be positioned in the top--left corner(\texttt{label=corner}). Default: \texttt{middle}.
 % \changes{v2.0}{2018/11/20}{Support alternate input label position}
 %
 % \begin{figure}[H]
 %   \centering
 %   \resizebox{.75\textwidth}{!}{%
-%     \begin{karnaugh-map}
-%     \end{karnaugh-map}%
-%     \begin{karnaugh-map}(label=corner)
-%     \end{karnaugh-map}%
+%     \begin{kmap}
+%     \end{kmap}%
+%     \begin{kmap}(label=corner)
+%     \end{kmap}%
 %   }
 % \end{figure}
 %
@@ -1460,16 +1462,16 @@
 %
 % \begin{figure}[H]
 %   \centering
-%   \begin{karnaugh-map}(linestyles)[2][2][1][$X_0$][$X_1$]
+%   \begin{kmap}(linestyles)[2][2][1][$X_0$][$X_1$]
 %     \implicant{1}{1}
 %     \implicant{2}{2}
 %     \implicant{1}{3}
-%   \end{karnaugh-map}
-%   \begin{karnaugh-map}(linestyles)*[2][2][1][$X_0$][$X_1$]
+%   \end{kmap}
+%   \begin{kmap}(linestyles)*[2][2][1][$X_0$][$X_1$]
 %     \implicant{1}{1}
 %     \implicant{2}{2}
 %     \implicant{1}{3}
-%   \end{karnaugh-map}
+%   \end{kmap}
 % \end{figure}
 %
 % \newpage
@@ -1477,7 +1479,7 @@
 %   \begin{multicols}{2}
 %     [Draw a karnaugh map for \small{$f(a,b,c,d,e,f) =$\\$\Sigma(0,1,2,3,8,13,17,20,22,28,33,32,30,19,40,35,49,42,34,10,60,54,62,51,52)$\\$+d(15,45,47)$}.]
 %     \begin{verbatim}
-%\begin{karnaugh-map}[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
+%\begin{kmap}[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
 %  \minterms{0,1,2,3,8,13,17,20,22,28,
 %    33,32,30,19,40,35,49,42,34,10,60,
 %    54,62,51,52}
@@ -1487,12 +1489,12 @@
 %  \implicant{1}{3}[0,1,2,3]
 %  \implicantedge{4}{12}{6}{14}[1,3]
 %  \implicant{13}{15}[0,2]
-%\end{karnaugh-map}
+%\end{kmap}
 %     \end{verbatim}
 %     \columnbreak
 %     \vspace*{0.25em}
 %     \resizebox{\columnwidth}{!}{%
-%       \begin{karnaugh-map}[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
+%       \begin{kmap}[4][4][4][$a$][$b$][$c$][$d$][$e$][$f$]
 %         \minterms{0,1,2,3,8,13,17,20,22,28,33,32,30,19,40,35,49,42,34,10,60,54,62,51,52}
 %         \indeterminants{15,45,47}
 %         \autoterms[0]
@@ -1500,26 +1502,26 @@
 %         \implicant{1}{3}[0,1,2,3]
 %         \implicantedge{4}{12}{6}{14}[1,3]
 %         \implicant{13}{15}[0,2]
-%       \end{karnaugh-map}%
+%       \end{kmap}%
 %     }
 %   \end{multicols}
 %
 %   \begin{multicols}{2}
 %     [Draw a karnaugh map for \small{$f(X_0,X_1) = \Pi(0,2,3)$} in black and white.]
 %     \begin{verbatim}
-%\begin{karnaugh-map}*[2][2][1]
+%\begin{kmap}*[2][2][1]
 %  \maxterms{0,2,3}
 %  \autoterms[1]
 %  \implicant{1}{1}
-%\end{karnaugh-map}
+%\end{kmap}
 %     \end{verbatim}
 %     \columnbreak
 %     \resizebox{\columnwidth}{!}{%
-%       \begin{karnaugh-map}*[2][2][1]
+%       \begin{kmap}*[2][2][1]
 %         \maxterms{0,2,3}
 %         \autoterms[1]
 %         \implicant{1}{1}
-%       \end{karnaugh-map}%
+%       \end{kmap}%
 %     }
 %   \end{multicols}
 %
@@ -1527,25 +1529,25 @@
 %   \begin{multicols}{2}
 %     [Draw a variable entered map.]
 %     \begin{verbatim}
-%\begin{karnaugh-map}[4][2][1][$a$][$b$][$c$]
+%\begin{kmap}[4][2][1][$a$][$b$][$c$]
 %  \maxterms{0,2,4,5,6}
 %  \minterms{3}
 %  \terms{1}{$d$}
 %  \terms{7}{$d'$}
 %  \implicant{1}{3}
 %  \implicant{3}{7}
-%\end{karnaugh-map}
+%\end{kmap}
 %     \end{verbatim}
 %     \columnbreak
 %     \resizebox{\columnwidth}{!}{%
-%       \begin{karnaugh-map}[4][2][1][$a$][$b$][$c$]
+%       \begin{kmap}[4][2][1][$a$][$b$][$c$]
 %         \maxterms{0,2,4,5,6}
 %         \minterms{3}
 %         \terms{1}{$d$}
 %         \terms{7}{$d'$}
 %         \implicant{1}{3}
 %         \implicant{3}{7}
-%       \end{karnaugh-map}%
+%       \end{kmap}%
 %     }
 %   \end{multicols}
 %
@@ -1564,8 +1566,8 @@
 % The karnaugh maps produced with this package have a prespecified size which can not be changed. However you can resize the karnaugh map to your desired size. Resizing can be done using the |\resizebox| command from the graphicx package. Scaling the karnaugh map to fill the column width while preserving the aspect ratio can be done as follows.
 % \begin{verbatim}
 %\resizebox{\columnwidth}{!}{%
-%  \begin{karnaugh-map}
-%  \end{karnaugh-map}%
+%  \begin{kmap}
+%  \end{kmap}%
 %}
 % \end{verbatim}
 %
