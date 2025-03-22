@@ -336,7 +336,9 @@
     \setkeys{karnaugh-map}{#1}%
     %
     % check if the user wants us to omit begin/end{tikzpicture}
-    \if@karnaughmap@option@omittikzpicture\else
+    \if@karnaughmap@option@omittikzpicture
+      \begin{scope}
+    \else
       % wrap in tikzpicture for the user
       \begin{tikzpicture}
     \fi
@@ -375,7 +377,9 @@
     \@karnaughmap@func@karnaughstart@%
 }{
     % end tikzpicture if the user did not want us to omit it
-    \if@karnaughmap@option@omittikzpicture\else
+    \if@karnaughmap@option@omittikzpicture
+      \end{scope}
+    \else
       \end{tikzpicture}
     \fi
   \endgroup
@@ -576,14 +580,14 @@
       Existing templates have the following dimensions: 2x2x1, 2x4x1, 4x2x1, 4x4x1, 4x4x2, and 4x4x4.
     }%
   \fi
-  \begin{scope}[
+  \tikzset{
     LineStyleA/.style={semithick,solid},
     LineStyleB/.style={semithick,dash dot dot},
     LineStyleC/.style={thin,double distance=0.8pt},
     LineStyleD/.style={ultra thick},
     LineStyleE/.style={semithick,dashed},
     LineStyleF/.style={semithick,densely dotted},
-  ]
+  }
     % grid {[START]
       % for all dimensions
       \draw[color=black, ultra thin] (0,0) grid (\@karnaughmap@var@mapsizex@,\@karnaughmap@var@mapsizey@);
@@ -655,7 +659,6 @@
     ] at (\@karnaughmap@var@mapsizex@*0.5+\@karnaughmap@local@maprealignmentx@,\@karnaughmap@var@mapsizey@*0.5+\@karnaughmap@local@maprealignmenty@) {
       \@karnaughmap@local@matrixtemplate@%
     };
-  \end{scope}
 }
 % ^^A ##########################################################################
 % ^^A ##########################################################################
