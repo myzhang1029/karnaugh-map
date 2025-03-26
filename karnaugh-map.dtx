@@ -1480,14 +1480,14 @@
 %
 % \texttt{omittikzpicture}: By default, the |karnaugh-map| environment creates its own |tikzpicture| environment. This option disables this behavior, and it would be expected that the user wraps the |karnaugh-map| environment in a |tikzpicture| environment. This option makes it possible to use the |tikzexternal| package with |karnaugh-map|, or to integrate |karnaugh-map| into a larger |tikzpicture|.
 %
-% \begin{figure}[H]
-%   \centering
-%   \rotatebox{-30}{%
-%     \begin{tikzpicture}
-%        \begin{karnaugh-map}(omittikzpicture)
-%        \end{karnaugh-map}
-%     \end{tikzpicture}}
-% \end{figure}
+% \begin{verbatim}
+%   \begin{tikzpicture}
+%     \begin{karnaugh-map}(omittikzpicture)
+%       \minterms{0,1,2,3}
+%     \end{karnaugh-map}
+%     % Additional tikz code in the same picture
+%   \end{tikzpicture}}
+% \end{verbatim}
 %
 % \newpage
 % \section{Examples}
