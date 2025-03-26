@@ -1,8 +1,8 @@
 \documentclass{standalone}
-\usepackage{../karnaugh-map}
+\usepackage[omittikzpicture]{../karnaugh-map}
 \begin{document}
   \begin{tikzpicture}
-    \begin{karnaugh-map}(omittikzpicture)[4][4][1]
+    \begin{karnaugh-map}[4][4][1]
       \implicant{0}{0}
       \implicant{1}{1}
       \implicant{2}{2}
@@ -21,7 +21,8 @@
       \implicant{15}{15}
     \end{karnaugh-map}
   \end{tikzpicture}
-  \begin{karnaugh-map}[4][4][1]
+  %\makeatletter\@karnaughmap@option@omittikzpicturefalse\makeatother
+  \begin{karnaugh-map}(omittikzpicture=false)[4][4][1]
     \implicant{0}{0}
     \implicant{1}{1}
     \implicant{2}{2}
